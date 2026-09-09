@@ -9,3 +9,4 @@ Add outro slide +ThePriceOfTheWar
 Animate the 1st slide +ThePriceOfTheWar
 Animate the 2nd slide +ThePriceOfTheWar
 Animate the 3nd slide +ThePriceOfTheWar
+Add the source references +ThePriceOfTheWar
