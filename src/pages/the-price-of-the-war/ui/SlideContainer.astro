@@ -1,0 +1,18 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {}
+
+const {class: classList, ...rest} = Astro.props;
+---
+<div class={`slide-container ${classList ?? ''}`} {...rest}>
+    <slot></slot>
+</div>
+
+<style>
+.slide-container {
+    max-width: 1080rem;
+    margin: 0 auto;
+    padding: clamp(20rem, -15rem + 10.938vw, 55rem);
+}
+</style>

@@ -1,0 +1,144 @@
+---
+import DecoreHorizon from '../assets/DecoreHorizon.svg';
+import SlideContainer from './SlideContainer.astro';
+---
+
+<article class="intro-slide">
+    <SlideContainer class="intro-slide__container">
+        <div class="intro-slide__top-decoration">
+            <DecoreHorizon class="horizon-decoration _top-shift" />
+        </div>
+        <h1 class="intro-slide__title slide-title">
+            <span class="slide-title__fragment">The Price</span>
+            <span class="slide-title__fragment slide-title__fragment_preposition">of</span>
+            <span class="slide-title__fragment">The War</span>
+        </h1>
+        <p class="intro-slide__text slide-text">
+            Once upon a time, a warrior named Cossack Mamai clashed with the
+            enormous bear. Probably, it was the biggest bear that has ever existed.
+            Overwhelmed by its colossal stature, Mamai begs princess Europa, the
+            daughter of Agenor, and her steadfast companion Eagle, to lend their aid
+            in resisting the wrath of nature. In exchange for their valiant efforts,
+            he vowed to deliver the hide of the beast. Europa and Eagle consented to
+            this perilous endeavor. But they paid too dearly for this battle: none
+            of the peaceful initiatives cost as much as this struggle against the
+            ferocious ursine adversary.
+        </p>
+        <div class="intro-slide__bottom-decoration">
+            <DecoreHorizon class="horizon-decoration _top-shift" />
+        </div>
+    </SlideContainer>
+</article>
+
+<style>
+    .intro-slide {
+        --top-padding: 55rem;
+
+        .intro-slide__container {
+            position: relative;
+        }
+
+        .intro-slide__top-decoration,
+        .intro-slide__bottom-decoration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .horizon-decoration {
+                width: clamp(230rem, 193.333rem + 11.458vw, 340rem);
+                --shift: 30rem;
+
+                &._top-shift {
+                    transform: translateY(var(--shift));
+                    margin: 0 0 clamp(50rem, 30rem + 6.25vw, 110rem) 0;
+                }
+
+                &._bottom-shift {
+                    transform: translateY(calc(var(--shift) * -1));
+                    margin: clamp(50rem, 30rem + 6.25vw, 110rem) 0 0 0;
+                }
+            }
+
+            &:before,
+            &:after {
+                display: block;
+                width: clamp(120rem, 70rem + 7.813vw, 170rem);
+                position: absolute;
+            }
+        }
+
+        .intro-slide__top-decoration {
+            @media screen and (min-width: 640px) {
+                &:before,
+                &:after {
+                    content: url("../assets/Decore.svg");
+                }
+            }
+
+            &:before {
+                left: var(--top-padding);
+                top: var(--top-padding);
+                transform: scaleX(-1) scaleY(-1);
+            }
+
+            &:after {
+                right: var(--top-padding);
+                top: var(--top-padding);
+                transform: scaleY(-1);
+            }
+        }
+
+        .intro-slide__bottom-decoration {
+            @media screen and (min-width: 900px) {
+                &:before,
+                &:after {
+                    content: url("../assets/Decore.svg");
+                }
+            }
+
+            &:before {
+                left: var(--top-padding);
+                transform: scaleX(-1);
+                bottom: var(--top-padding);
+            }
+
+            &:after {
+                right: var(--top-padding);
+                bottom: var(--top-padding);
+            }
+        }
+
+        .intro-slide__title {
+            margin: 0 0 22rem;
+        }
+
+        .intro-slide__text {
+            max-width: 600rem;
+            margin: 0 auto;
+        }
+    }
+
+    .slide-title {
+        font-family: var(--font-beware);
+        font-size: clamp(54rem, 35.333rem + 5.833vw, 110rem);
+        color: var(--accent);
+        text-align: center;
+
+        .slide-title__fragment {
+            display: block;
+        }
+
+        .slide-title__fragment_preposition {
+            font-size: 0.3em;
+            margin: -0.7em 0 -1.1em 0;
+        }
+    }
+
+    .slide-text {
+        font-family: var(--font-segoe-script);
+        font-size: clamp(16rem, 14.667rem + 0.417vw, 20rem);
+        color: var(--muted);
+        text-align: justify;
+        text-align-last: center;
+    }
+</style>

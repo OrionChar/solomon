@@ -1,0 +1,70 @@
+---
+import ThePriceOfTheWarIntroSlide from "./ui/ThePriceOfTheWarIntroSlide.astro";
+import ThePriceOfTheWarChartSlide from "./ui/ChartSlide.astro";
+import { Font } from "astro:assets";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>The Price of The War</title>
+        <Font cssVariable="--font-segoe-script" preload />
+        <Font cssVariable="--font-beware" preload />
+    </head>
+
+    <body>
+        <section style="width: 100%;">
+            <ThePriceOfTheWarIntroSlide />
+            <ThePriceOfTheWarChartSlide />
+        </section>
+
+        <section class="content">
+            <div class="links-container" id="linksContainer">
+                <!-- Links will be injected here -->
+            </div>
+        </section>
+
+        <div class="bg-pattern"></div>
+        <div class="grid-lines"></div>
+
+        <!-- <script type="module" src="./index.js"></script> -->
+    </body>
+</html>
+
+<style>
+    :root {
+        --bg: #191919;
+        --fg: #e8e8e8;
+        --accent: #be9c63;
+        --muted: #7e7e7e;
+        --decorative: #3b3329;
+        --border: #2a2a2a;
+
+        --min-viewport-width: 320px;
+        --max-viewport-width: 1280px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        font-size: 1px;
+    }
+
+    body {
+        font-family: "Space Grotesk", sans-serif;
+        background-color: var(--bg);
+        color: var(--fg);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+    }
+</style>

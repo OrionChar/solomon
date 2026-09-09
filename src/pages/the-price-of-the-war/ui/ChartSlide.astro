@@ -1,0 +1,110 @@
+---
+import { calcTotalBudget, megaprojectBudgets } from "./megaproject-budgets";
+
+import BarGroupAstroComponent from "./BarGroup.astro";
+import SlideContainer from "./SlideContainer.astro";
+
+megaprojectBudgets.sort((megaprojectA, megaprojectB) => {
+    const priceA = Array.isArray(megaprojectA)
+        ? calcTotalBudget(megaprojectA)
+        : megaprojectA.budget;
+    const priceB = Array.isArray(megaprojectB)
+        ? calcTotalBudget(megaprojectB)
+        : megaprojectB.budget;
+
+    return priceB - priceA;
+});
+
+const maxBudget = Array.isArray(megaprojectBudgets[0])
+    ? calcTotalBudget(megaprojectBudgets[0])
+    : megaprojectBudgets[0].budget;
+---
+
+<article class="chart-slide">
+    <SlideContainer class={"chart-slide__container"}>
+        <div class="chart-slide__chart">
+            {
+                megaprojectBudgets.map((megaproject) => {
+                    return (
+                        <div class="bar-raw">
+                            <BarGroupAstroComponent
+                                class="sub-bar"
+                                maxBudget={maxBudget}
+                                megaprojectBudgets={
+                                    Array.isArray(megaproject)
+                                        ? megaproject
+                                        : [megaproject]
+                                }
+                            />
+                            <div class="budget">
+                                $
+                                {Array.isArray(megaproject)
+                                    ? calcTotalBudget(megaproject)
+                                    : megaproject.budget}
+                                B
+                            </div>
+                        </div>
+                    );
+                })
+            }
+        </div>
+    </SlideContainer>
+</article>
+
+<style>
+    .chart-slide {
+        width: 100%;
+    }
+
+    .chart-slide__chart {
+        max-width: 750rem;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .budget {
+        font-family: var(--font-beware);
+    }
+
+    @media screen and (min-width: 640px) {
+        .chart-slide__chart {
+            gap: 45rem;
+
+        }
+
+        .bar-raw {
+            display: grid;
+            grid-template-columns: 206rem 1fr;
+            grid-template-rows: 30rem min-content;
+            column-gap: 20rem;
+
+            .sub-bar {
+                grid-column: 2 / 3;
+            }
+
+            .budget {
+                font-size: 65rem;
+                grid-row: 1 / 3;
+                height: 60rem;
+                transform: translateY(-5rem);
+                justify-self: right;
+            }
+        }
+    }
+
+    @media screen and (max-width: 639px) {
+        .chart-slide__chart {
+            gap: 75rem;
+        }
+
+        .bar-raw {
+            display: flex;
+            flex-direction: column-reverse;
+
+            .budget {
+                font-size: 50rem;
+            }
+        }
+    }
+</style>
