@@ -1,8 +1,9 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import { calcTotalBudget, type MegaprojectBudget } from "./megaproject-budgets";
+import ExternalLink from "../../../shared/assets/icons/external-link.svg";
 
-interface Props extends HTMLAttributes<'div'>  {
+interface Props extends HTMLAttributes<"div"> {
     megaprojectBudgets: MegaprojectBudget[];
     maxBudget: number;
 }
@@ -25,10 +26,25 @@ const takenSpace = megaprojectBudgets
         megaprojectBudgets.map((megaproject, _index, array) => {
             return (
                 <div class="bar">
-                    {array.length > 1 ?  <span class="value">${megaproject.budget}B</span> : ''}
-                    {megaproject?.legend ? <div class="lagend">{megaproject.legend}</div> : ''}
+                    {array.length > 1 ? (
+                        <span class="value">${megaproject.budget}B</span>
+                    ) : (
+                        ""
+                    )}
+                    {megaproject?.legend ? (
+                        <a
+                            href={megaproject.reference ?? "#"}
+                            target="_blank"
+                            class="legend"
+                        >
+                            {megaproject.legend}
+                            <ExternalLink class="legend__icon" />
+                        </a>
+                    ) : (
+                        ""
+                    )}
                 </div>
-            )
+            );
         })
     }
 </div>
@@ -39,7 +55,8 @@ const takenSpace = megaprojectBudgets
         gap: 1rem;
         grid-template-rows: 30rem;
 
-        .bar, .lagend {
+        .bar,
+        .legend {
             font-family: "Liberation Mono", Courier, monospace;
         }
 
@@ -58,15 +75,42 @@ const takenSpace = megaprojectBudgets
                 font-weight: bold;
             }
         }
+    }
 
-        .lagend {
-            position: absolute;
-            bottom: -22rem;
-            left: 0;
-            text-wrap-mode: nowrap;
-            color: #7e7e7e;
-            font-size: 14rem;
-            align-self: end;
+    .legend {
+        text-decoration: none;
+        position: absolute;
+        bottom: -22rem;
+        left: 0;
+        text-wrap-mode: nowrap;
+        color: #7e7e7e;
+        font-size: 14rem;
+        align-self: end;
+
+        .legend__icon {
+            stroke: #7e7e7e;
+            height: 16rem;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .legend__icon {
+                transform: translate(5px, 3px);
+            }
+        }
+
+        /* Targets non-touch (mouse) devices */
+        @media (hover: hover) and (pointer: fine) {
+            .legend__icon {
+                opacity: 0;
+                transform: translate(5px, 13px);
+                transition: ease-in-out 0.1s;
+                transition-property: transform, opacity;
+            }
+
+            &:hover .legend__icon {
+                transform: translate(5px, 3px);
+                opacity: 1;
+            }
         }
     }
 </style>

@@ -9,4 +9,4 @@ Add outro slide +ThePriceOfTheWar
 Animate the 1st slide +ThePriceOfTheWar
 Animate the 2nd slide +ThePriceOfTheWar
 Animate the 3nd slide +ThePriceOfTheWar
-Add the source references +ThePriceOfTheWar
+Add the source references +ThePriceOfTheWar {start:2026-09-09T20:55:25} {cm:2026-09-10} {duration:11h46m}
