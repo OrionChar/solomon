@@ -1,6 +1,24 @@
 ---
-import DecoreHorizon from '../assets/DecoreHorizon.svg';
-import SlideContainer from './SlideContainer.astro';
+import type { SupportedLocale } from '../../../../../shared/i18n';
+import DecoreHorizon from '../../assets/DecoreHorizon.svg';
+import SlideContainer from '../SlideContainer.astro';
+import ENTitle  from './ENTitle.astro';
+import RUTitle from './RUTitle.astro'
+
+interface Props {
+    locale: SupportedLocale,
+    title: string,
+    story: string,
+}
+
+const {locale, story} = Astro.props
+
+const titlesComponents: Record<SupportedLocale, any> = {
+    en: ENTitle,
+    ru: RUTitle
+}
+
+const Title = titlesComponents[locale]
 ---
 
 <article class="intro-slide">
@@ -8,22 +26,8 @@ import SlideContainer from './SlideContainer.astro';
         <div class="intro-slide__top-decoration">
             <DecoreHorizon class="horizon-decoration _top-shift" />
         </div>
-        <h1 class="intro-slide__title slide-title">
-            <span class="slide-title__fragment">The Price</span>
-            <span class="slide-title__fragment slide-title__fragment_preposition">of</span>
-            <span class="slide-title__fragment">The War</span>
-        </h1>
-        <p class="intro-slide__text slide-text">
-            Once upon a time, a warrior named Cossack Mamai clashed with the
-            enormous bear. Probably, it was the biggest bear that has ever existed.
-            Overwhelmed by its colossal stature, Mamai begs princess Europa, the
-            daughter of Agenor, and her steadfast companion Eagle, to lend their aid
-            in resisting the wrath of nature. In exchange for their valiant efforts,
-            he vowed to deliver the hide of the beast. Europa and Eagle consented to
-            this perilous endeavor. But they paid too dearly for this battle: none
-            of the peaceful initiatives cost as much as this struggle against the
-            ferocious ursine adversary.
-        </p>
+        <Title class="intro-slide__title" />
+        <p class="intro-slide__text slide-text">{story}</p>
         <div class="intro-slide__bottom-decoration">
             <DecoreHorizon class="horizon-decoration _top-shift" />
         </div>
@@ -71,7 +75,7 @@ import SlideContainer from './SlideContainer.astro';
             @media screen and (min-width: 640px) {
                 &:before,
                 &:after {
-                    content: url("../assets/Decore.svg");
+                    content: url("../../assets/Decore.svg");
                 }
             }
 
@@ -92,7 +96,7 @@ import SlideContainer from './SlideContainer.astro';
             @media screen and (min-width: 900px) {
                 &:before,
                 &:after {
-                    content: url("../assets/Decore.svg");
+                    content: url("../../assets/Decore.svg");
                 }
             }
 
@@ -115,22 +119,6 @@ import SlideContainer from './SlideContainer.astro';
         .intro-slide__text {
             max-width: 600rem;
             margin: 0 auto;
-        }
-    }
-
-    .slide-title {
-        font-family: var(--font-beware);
-        font-size: clamp(54rem, 35.333rem + 5.833vw, 110rem);
-        color: var(--accent);
-        text-align: center;
-
-        .slide-title__fragment {
-            display: block;
-        }
-
-        .slide-title__fragment_preposition {
-            font-size: 0.3em;
-            margin: -0.7em 0 -1.1em 0;
         }
     }
 

@@ -1,5 +1,15 @@
+---
+import { detectLocale } from '../../shared/i18n';
+
+export function getStaticPaths() {
+    return detectLocale()
+}
+
+const locale = Astro.params.locale ?? Astro.currentLocale;
+---
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang={locale}>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -149,7 +159,7 @@
                             <span class="font-display text-[10px] tracking-[0.3em] text-muted uppercase">Prologue</span>
                         </div>
                         
-                        <a href="/the-price-of-the-war" class="toc-item flex items-baseline py-3 group animate-in" style="animation-delay: 0.4s;">
+                        <a href={`${locale}/the-price-of-the-war`} class="toc-item flex items-baseline py-3 group animate-in" style="animation-delay: 0.4s;">
                             <span class="font-display text-accent text-sm w-8">I</span>
                             <span class="item-title text-lg md:text-xl transition-colors">The Price of The War</span>
                             <span class="leader"></span>
