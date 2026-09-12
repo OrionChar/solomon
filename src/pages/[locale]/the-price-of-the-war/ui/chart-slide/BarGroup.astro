@@ -1,14 +1,17 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import { calcTotalBudget, type MegaprojectBudget } from "./megaproject-budgets";
-import ExternalLink from "../../../shared/assets/icons/external-link.svg";
+import type { SupportedLocale } from "../../../../../shared/i18n";
+import { translations } from "../../i18n";
+import ExternalLink from "../../../../../shared/assets/icons/external-link.svg";
 
-interface Props extends HTMLAttributes<"div"> {
+interface Props extends HTMLAttributes<'div'>  {
+    locale: SupportedLocale,
     megaprojectBudgets: MegaprojectBudget[];
     maxBudget: number;
 }
 
-const { megaprojectBudgets, maxBudget, ...rest } = Astro.props;
+const { megaprojectBudgets, locale, maxBudget, ...rest } = Astro.props;
 
 const totalBudget = calcTotalBudget(megaprojectBudgets);
 const freeSpace = maxBudget > totalBudget ? `${maxBudget - totalBudget}fr` : "";
@@ -31,13 +34,13 @@ const takenSpace = megaprojectBudgets
                     ) : (
                         ""
                     )}
-                    {megaproject?.legend ? (
+                    {megaproject?.legendKey ? (
                         <a
                             href={megaproject.reference ?? "#"}
                             target="_blank"
                             class="legend"
                         >
-                            {megaproject.legend}
+                            {translations[locale][megaproject.legendKey]}
                             <ExternalLink class="legend__icon" />
                         </a>
                     ) : (
@@ -55,8 +58,7 @@ const takenSpace = megaprojectBudgets
         gap: 1rem;
         grid-template-rows: 30rem;
 
-        .bar,
-        .legend {
+        .bar, .legend {
             font-family: "Liberation Mono", Courier, monospace;
         }
 

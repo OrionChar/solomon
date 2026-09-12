@@ -1,0 +1,35 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'h1'> {}
+
+const {class: classList, ...rest} = Astro.props;
+---
+
+<h1 class={`slide-title ${classList}`} {...rest}>
+    <span class="slide-title__fragment">Война</span>
+    <span class="slide-title__fragment">чего она стоит</span>
+</h1>
+
+<style>
+    .slide-title {
+        font-family: var(--font-beware);
+        font-weight: normal;
+        color: var(--accent);
+        text-align: center;
+
+        .slide-title__fragment {
+            display: block;
+            text-transform: uppercase;
+
+            &:first-child {
+                line-height: 78%;
+                font-size: clamp(54rem, 35.333rem + 5.833vw, 110rem);
+            }
+
+            &:last-child {
+                font-size: clamp(14rem, 35.333rem + 5.833vw, 26rem);
+            }
+        }
+    }
+</style>

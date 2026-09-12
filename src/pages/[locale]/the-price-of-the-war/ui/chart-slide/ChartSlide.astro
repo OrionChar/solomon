@@ -1,8 +1,13 @@
 ---
 import { calcTotalBudget, megaprojectBudgets } from "./megaproject-budgets";
 
-import BarGroupAstroComponent from "./BarGroup.astro";
-import SlideContainer from "./SlideContainer.astro";
+import BarGroup from "./BarGroup.astro";
+import SlideContainer from "../SlideContainer.astro";
+import type { SupportedLocale } from "../../../../../shared/i18n";
+
+interface Props {
+    locale: SupportedLocale
+}
 
 megaprojectBudgets.sort((megaprojectA, megaprojectB) => {
     const priceA = Array.isArray(megaprojectA)
@@ -18,6 +23,8 @@ megaprojectBudgets.sort((megaprojectA, megaprojectB) => {
 const maxBudget = Array.isArray(megaprojectBudgets[0])
     ? calcTotalBudget(megaprojectBudgets[0])
     : megaprojectBudgets[0].budget;
+
+const { locale } = Astro.props;
 ---
 
 <article class="chart-slide">
@@ -27,7 +34,8 @@ const maxBudget = Array.isArray(megaprojectBudgets[0])
                 megaprojectBudgets.map((megaproject) => {
                     return (
                         <div class="bar-raw">
-                            <BarGroupAstroComponent
+                            <BarGroup
+                                locale={locale}
                                 class="sub-bar"
                                 maxBudget={maxBudget}
                                 megaprojectBudgets={

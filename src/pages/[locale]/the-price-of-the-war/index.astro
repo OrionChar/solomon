@@ -1,35 +1,33 @@
 ---
-import ThePriceOfTheWarIntroSlide from "./ui/ThePriceOfTheWarIntroSlide.astro";
-import ThePriceOfTheWarChartSlide from "./ui/ChartSlide.astro";
+import IntroSlide from "./ui/intro-slide/IntroSlide.astro";
+import ChartSlide from "./ui/chart-slide/ChartSlide.astro";
 import { Font } from "astro:assets";
+import { translate, detectLocale } from "../../../shared/i18n"
+import {translations} from './i18n'
+
+const locale = Astro.params.locale ?? Astro.currentLocale;
+const t = translate(translations, locale)
+
+export function getStaticPaths() {
+    return detectLocale()
+}
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>The Price of The War</title>
+        <title>{t('title')}</title>
         <Font cssVariable="--font-segoe-script" preload />
         <Font cssVariable="--font-beware" preload />
     </head>
 
     <body>
         <section style="width: 100%;">
-            <ThePriceOfTheWarIntroSlide />
-            <ThePriceOfTheWarChartSlide />
+            <IntroSlide title={t('title')} locale={locale} story={t('story')} />
+            <ChartSlide locale={locale} />
         </section>
-
-        <section class="content">
-            <div class="links-container" id="linksContainer">
-                <!-- Links will be injected here -->
-            </div>
-        </section>
-
-        <div class="bg-pattern"></div>
-        <div class="grid-lines"></div>
-
-        <!-- <script type="module" src="./index.js"></script> -->
     </body>
 </html>
 
