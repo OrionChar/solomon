@@ -4,6 +4,7 @@ import ChartSlide from "./ui/chart-slide/ChartSlide.astro";
 import { Font } from "astro:assets";
 import { translate, detectLocale } from "../../../shared/i18n"
 import {translations} from './i18n'
+import BaseLayout from "../../../widgets/base-layout/ui/BaseLayout.astro";
 
 const locale = Astro.params.locale ?? Astro.currentLocale;
 const t = translate(translations, locale)
@@ -13,56 +14,12 @@ export function getStaticPaths() {
 }
 ---
 
-<!doctype html>
-<html lang={locale}>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{t('title')}</title>
-        <Font cssVariable="--font-segoe-script" preload />
-        <Font cssVariable="--font-beware" preload />
-    </head>
+<BaseLayout title={t('title')}>
+    <Font slot="head" cssVariable="--font-segoe-script" preload />
+    <Font slot="head" cssVariable="--font-beware" preload />
 
-    <body>
-        <section style="width: 100%;">
-            <IntroSlide title={t('title')} locale={locale} story={t('story')} />
-            <ChartSlide locale={locale} />
-        </section>
-    </body>
-</html>
-
-<style>
-    :root {
-        --bg: #191919;
-        --fg: #e8e8e8;
-        --accent: #be9c63;
-        --muted: #7e7e7e;
-        --decorative: #3b3329;
-        --border: #2a2a2a;
-
-        --min-viewport-width: 320px;
-        --max-viewport-width: 1280px;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    html {
-        font-size: 1px;
-    }
-
-    body {
-        font-family: "Space Grotesk", sans-serif;
-        background-color: var(--bg);
-        color: var(--fg);
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 2rem;
-    }
-</style>
+    <section style="width: 100%;">
+        <IntroSlide title={t('title')} locale={locale} story={t('story')} />
+        <ChartSlide locale={locale} />
+    </section>
+</BaseLayout>
