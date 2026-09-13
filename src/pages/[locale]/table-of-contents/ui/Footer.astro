@@ -1,0 +1,51 @@
+---
+// Footer.astro
+---
+
+<footer class="footer">
+    <div class="footer-content text-muted">
+        <span class="footer-line"></span>
+        <a
+            class="footer-link"
+            href="http://alyosha.productions"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            alyosha.productions
+        </a>
+        <span class="footer-line"></span>
+    </div>
+</footer>
+
+<style>
+    .footer {
+        padding-top: 24rem;
+        padding-bottom: 24rem;
+        text-align: center;
+    }
+
+    .footer-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12rem;
+    }
+
+    .footer-line {
+        width: 32rem;
+        height: 1rem;
+        /* Translating bg-muted/40. Assuming --muted is a CSS variable. 
+           Fallback to rgba gray if variable is undefined */
+        background-color: var(--muted, rgba(128, 128, 128, 1));
+        opacity: 0.4;
+    }
+
+    .footer-link {
+        font-family: var(--font-cinzel);
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 12rem;
+        line-height: 16rem;
+        letter-spacing: 0.2em;
+    }
+</style>

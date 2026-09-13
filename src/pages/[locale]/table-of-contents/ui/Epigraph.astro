@@ -1,0 +1,23 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"p"> {
+    epigraph: string;
+}
+
+const { epigraph, ...rest } = Astro.props;
+---
+
+<p class="epigraph" {...rest}>
+    {epigraph}
+</p>
+
+<style>
+    .epigraph {
+        font-family: var(--font-cormorant-garamond);
+        color: var(--muted);
+        font-size: 16rem;
+        line-height: 20rem;
+        font-style: italic;
+    }
+</style>
