@@ -1,0 +1,178 @@
+---
+import { detectLocale } from "../../../../shared/i18n";
+import { translations } from "../i18n";
+
+export function getStaticPaths() {
+    return detectLocale();
+}
+
+const locale = Astro.params.locale ?? Astro.currentLocale;
+
+
+interface EntryItem {
+    title: string;
+    href: string;
+}
+
+interface Props {
+    entries: EntryItem[];
+}
+
+const { entries } = Astro.props;
+---
+
+<article class="contents-table-container frame-container">
+    <div class="corner corner_top-left"></div>
+    <div class="corner corner_top-right"></div>
+    <div class="corner corner_bottom-left"></div>
+    <div class="corner corner_bottom-right"></div>
+
+    <p class="contents-table-container__section-title section-title">{translations[locale].pageTitle}</p>
+    <nav>
+        <ul class="contents-table">
+            {
+                entries.map((entry) => {
+                    return (
+                        <li class="contents-table__entry entry">
+                            <a href={entry.href} class="entry__link">
+                                <span class="entry__title">{entry.title}</span>
+                                <span class="entry__leader leader" />
+                            </a>
+                        </li>
+                    );
+                })
+            }
+        </ul>
+    </nav>
+</article>
+
+<style>
+    .contents-table-container {
+        --corner-offset: 16rem;
+
+        padding: 24rem 40rem;
+        border: 1px solid #3b3320;
+        position: relative;
+
+        @media (min-width: 768px) {
+            .frame-container {
+                padding: 40rem;
+            }
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 8px;
+            border: 1px solid #3b3320;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+    }
+
+    .contents-table-container__section-title {
+        margin: 20rem 0;
+    }
+
+    .section-title {
+        font-family: var(--font-cinzel);
+        color: var(--accent);
+        font-size: 16rem;
+        line-height: 16rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .contents-table {
+        counter-reset: entry-number;
+    }
+
+    .contents-table__entry {
+        margin: 17rem 0;
+    }
+
+    .entry {
+        font-family: var(--font-cormorant-garamond);
+        font-size: 20rem;
+
+        &:hover {
+            .entry__title {
+                color: var(--accent);
+            }
+
+            .entry__leader {
+                border-color: var(--accent);
+                opacity: 1;
+            }
+        }
+    }
+
+    .entry__link {
+        color: var(--muted);
+        text-decoration: none;
+        display: flex;
+        align-items: baseline;
+        counter-increment: entry-number;
+
+        &::after {
+            content: counter(entry-number, upper-roman);
+            color: var(--accent);
+            font-size: 0.8em;
+            width: 32rem;
+            text-align: center;
+        }
+    }
+
+    .entry__title {
+        transition: color 0.3s ease;
+    }
+
+    .entry__leader {
+        flex: 1;
+        transition: border 0.3s ease;
+        opacity: 0.6;
+    }
+
+    .leader {
+        border-bottom: 1px dotted #3b3320;
+        margin: 0 1rem;
+    }
+
+    .corner {
+        width: 20px;
+        height: 20px;
+        border-color: var(--accent);
+        position: absolute;
+        opacity: 0.6;
+        border-style: solid;
+    }
+
+    .corner_top-left {
+        top: var(--corner-offset);
+        left: var(--corner-offset);
+        border-top-width: 1rem;
+        border-left-width: 1rem;
+    }
+
+    .corner_top-right {
+        top: var(--corner-offset);
+        right: var(--corner-offset);
+        border-top-width: 1rem;
+        border-right-width: 1rem;
+    }
+
+    .corner_bottom-left {
+        bottom: var(--corner-offset);
+        left: var(--corner-offset);
+        border-bottom-width: 1rem;
+        border-left-width: 1rem;
+    }
+
+    .corner_bottom-right {
+        bottom: var(--corner-offset);
+        right: var(--corner-offset);
+        border-bottom-width: 1rem;
+        border-right-width: 1rem;
+    }
+</style>
