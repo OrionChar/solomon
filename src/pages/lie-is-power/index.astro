@@ -1,0 +1,96 @@
+---
+import BaseLayout from "../../widgets/base-layout/ui/BaseLayout.astro";
+import { Font } from "astro:assets";
+
+const wisdoms = [
+    "Серебром, взятым в рост под двацетину, ростовщик ласково обременяет долговыми цепями под десятину",
+    "Купчина же у мастера добро за десять златцев купует, отпускает оное по торгу за двадцать, золото вдвое приумножая",
+    "Писания всеми зримые, всем открытые люди льстивые переписывают да продают за злато свитки свои",
+    "За десять золотых ввергает вотчинник в труды десяток работных душ, а сам выгребает тысячу",
+    "Сонмище скупых мироначальников снискивает пот и плоть земнороднаго за десять золотых, а сбывает во временное услужение за двадцать",
+    "Оброк хранителю платить — долг непреложный. Но ждати от него заступы от напасти — аки ветр ловити: из двадцати овец едину из пасти волчьей отвратит, да и то по изволению Божию",
+    "Венценосцы, облачённые в злато да бармы, затевают сеч великую да пир кровавый, за счёт душ смеренных, за тщету владычества испустивших дух от рубящего жнеца",
+];
+---
+
+<BaseLayout title="Не наебешь, не проживешь">
+    <Font slot="head" cssVariable="--font-amador-gothic" preload />
+    <main class="page">
+        {
+            wisdoms.map((wisdom) => {
+                return (
+                    <aside class="page__wisdom wisdom">
+                        <h2 class="title animate-on-scroll">{wisdom}</h2>
+                    </aside>
+                );
+            })
+        }
+    </main>
+</BaseLayout>
+
+<script lang='ts'>
+const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+const options = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.7
+};
+
+const callback = (entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    } else {
+    //   entry.target.classList.remove('visible');
+    }
+  });
+};
+
+const observer = new IntersectionObserver(callback, options);
+animatedElements.forEach(el => observer.observe(el));   
+</script>
+
+<style>
+    .page {
+        display: flex;
+        flex-direction: column;
+        gap: 60rem;
+        padding: 30rem;
+
+        .page__wisdom {
+            height: 100dvh;
+        }
+    }
+
+    .wisdom {
+        display: flex;
+        align-items: center;
+        max-width: 700rem;
+        margin: 0 auto;
+    }
+
+    .title {
+        color: var(--accent);
+        font-family: var(--font-amador-gothic);
+        font-size: 60rem;
+
+        @media screen and (max-width: 600px) {
+            font-size: 30rem;
+        }
+    }
+
+    .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(40px);
+        transition:
+            opacity 1s cubic-bezier(.39,.58,.18,.96),
+            transform 1s cubic-bezier(.39,.58,.18,.96);
+    }
+
+    /* Final state: visible */
+    .animate-on-scroll.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
